@@ -1,0 +1,28 @@
+import cv2 as cv
+import numpy as np
+from matplotlib import pyplot as plt
+img = cv.imread('Sonic.jpeg')
+imgYUV = cv.cvtColor(img, cv.COLOR_BGR2YUV) #transformado em YUV
+imgYUV[:,:,0] = cv.equalizeHist(imgYUV[:,:,0])
+imgEqualizada = cv.cvtColor(imgYUV, cv.COLOR_YUV2BGR)
+cv.imshow('Imagem Original', img)
+cv.imshow('Imagem Equalizada', imgEqualizada)
+plt.subplot(2,2,1)
+plt.imshow(img[...,::-1]) 
+plt.title("Imagem Original")
+plt.axis('off')
+plt.subplot(2,2,3)
+plt.hist(img.ravel(), 256, [0,256])
+plt.title("Histograma da Imagem Original")
+plt.subplot(2,2,2)
+plt.imshow(imgEqualizada[...,::-1])
+plt.title("Imagem Equalizada")
+plt.axis('off')
+plt.subplot(2,2,4)
+plt.hist(imgEqualizada.ravel(), 256, [0,256])
+plt.title("Histograma da Imagem Equalizada: ")
+cv.imshow('Imagem Original', img)
+cv.imshow('Imagem Equalizada',imgEqualizada)
+plt.show()
+cv.waitKey(0)
+cv.destroyAllWindows()
